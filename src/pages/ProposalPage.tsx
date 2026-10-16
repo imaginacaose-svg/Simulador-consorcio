@@ -320,7 +320,7 @@ _Desejo prosseguir com a aquisição do consórcio._
               <Shield className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-white font-bold text-lg">Método Consórcio</h1>
+              <h1 className="text-white font-bold text-lg">Simulador Consórcio</h1>
               <p className="text-slate-400 text-xs">Proposta Personalizada</p>
             </div>
           </div>
@@ -418,162 +418,6 @@ _Desejo prosseguir com a aquisição do consórcio._
               </div>
             </div>
           </div>
-        </div>
-
-        {isImobiliario && (
-          <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-6 backdrop-blur-sm">
-            <h3 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
-              <Home className="w-5 h-5 text-emerald-400" />
-              O que você pode fazer com seu crédito
-            </h3>
-            <p className="text-slate-300 text-sm mb-4">
-              Com um único crédito imobiliário, você tem total flexibilidade para realizar seu
-              sonho:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { icon: '🏠', text: 'Comprar um imóvel pronto' },
-                { icon: '💰', text: 'Quitar financiamento existente' },
-                { icon: '🏗️', text: 'Construir do zero' },
-                { icon: '🔨', text: 'Reformar ou ampliar' },
-                { icon: '🌍', text: 'Comprar terreno e construir' },
-                { icon: '📋', text: 'Usar em qualquer finalidade imobiliária' },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-3 bg-slate-700/30 rounded-xl p-3"
-                >
-                  <span className="text-2xl">{item.icon}</span>
-                  <span className="text-slate-200 text-sm">{item.text}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
-              <p className="text-emerald-300 text-sm font-medium">
-                ✨ Um único crédito para todas essas possibilidades!
-              </p>
-            </div>
-          </div>
-        )}
-
-        <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-6 backdrop-blur-sm">
-          <h3 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
-            <TrendingDown className="w-5 h-5 text-emerald-400" />
-            Comparativo: Consórcio vs Financiamento
-          </h3>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                <span className="text-emerald-400 font-semibold text-sm">Consórcio</span>
-              </div>
-              <div className="space-y-2">
-                {data.lanceType === 'fixo' ? (
-                  <>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">Valor líquido:</span>
-                      <span className="text-slate-300">{formatCurrency(valorLiquidoReceber)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">+ Taxa adm. ({data.taxaAdministrativa}%):</span>
-                      <span className="text-slate-300">{formatCurrency(taxaValor)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">+ Fundo reserva ({data.fundoReserva}%):</span>
-                      <span className="text-slate-300">{formatCurrency(fundoValor)}</span>
-                    </div>
-                  </>
-                ) : data.lanceType === 'livre' ? (
-                  <>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">Valor líquido:</span>
-                      <span className="text-slate-300">{formatCurrency(valorLiquidoReceber)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">+ Taxa adm. ({data.taxaAdministrativa}%):</span>
-                      <span className="text-slate-300">{formatCurrency(taxaValor)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">+ Fundo reserva ({data.fundoReserva}%):</span>
-                      <span className="text-slate-300">{formatCurrency(fundoValor)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm text-xs pt-2 border-t border-emerald-500/10">
-                      <span className="text-orange-400">Lance livre (adicional do bolso):</span>
-                      <span className="text-orange-400">{formatCurrency(data.lanceLivreValue || 0)}</span>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">Crédito:</span>
-                      <span className="text-slate-300">{formatCurrency(data.creditValue)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">+ Taxa adm. ({data.taxaAdministrativa}%):</span>
-                      <span className="text-slate-300">{formatCurrency(taxaValor)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">+ Fundo reserva ({data.fundoReserva}%):</span>
-                      <span className="text-slate-300">{formatCurrency(fundoValor)}</span>
-                    </div>
-                  </>
-                )}
-                <div className="border-t border-emerald-500/20 pt-2 mt-2">
-                  <div className="flex justify-between">
-                    <span className="text-emerald-300 font-semibold">Total:</span>
-                    <span className="text-white font-bold text-xl">{formatCurrency(totalGeral)}</span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-emerald-300 text-xs mt-3">
-                ✅ Sem juros • Encargos diluídos • Reajuste {indiceReajuste}
-              </p>
-            </div>
-
-            <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <AlertCircle className="w-5 h-5 text-red-400" />
-                <span className="text-red-400 font-semibold text-sm">Financiamento*</span>
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-400">Valor financiado:</span>
-                  <span className="text-slate-300">{formatCurrency(valorLiquidoReceber)}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-400">Juros totais:</span>
-                  <span className="text-slate-300">{formatCurrency(financing.totalInterest)}</span>
-                </div>
-                <div className="border-t border-red-500/20 pt-2 mt-2">
-                  <div className="flex justify-between">
-                    <span className="text-red-300 font-semibold">Total:</span>
-                    <span className="text-white font-bold text-xl">{formatCurrency(financing.totalPaid)}</span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-red-300 text-xs mt-3">
-                ❌ Com juros de {taxaFinanciamentoAnual}% a.a. ({(taxaFinanciamentoMensal * 100).toFixed(1)}% a.m.) SAC
-              </p>
-              <p className="text-red-300/70 text-xs mt-1">
-                📊 Taxa média de mercado
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-xl p-4 text-center">
-            <p className="text-emerald-300 text-sm mb-1">💰 Sua economia com consórcio</p>
-            <p className="text-white text-3xl font-bold">{formatCurrency(economia)}</p>
-            <p className="text-emerald-300 text-sm mt-1">
-              {economiaPercent.toFixed(1)}% mais barato que o financiamento
-            </p>
-          </div>
-
-          <p className="text-slate-500 text-xs mt-3 text-center">
-            *Comparação baseada em financiamento com taxa média de mercado de {taxaFinanciamentoAnual}% a.a. ({(taxaFinanciamentoMensal * 100).toFixed(1)}% a.m.) - Sistema SAC.
-            <br />
-            O valor financiado é igual ao valor líquido que você recebe no consórcio.
-          </p>
         </div>
 
         {isImobiliario && (
@@ -774,156 +618,248 @@ _Desejo prosseguir com a aquisição do consórcio._
           </p>
         </div>
 
-        {data.lanceType === 'fixo' && (
-          <div className="bg-gradient-to-br from-emerald-500/10 via-teal-500/10 to-cyan-500/10 rounded-2xl border-2 border-emerald-500/30 p-6 backdrop-blur-sm">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                <TrendingUp className="w-6 h-6 text-white" />
+        <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-6 backdrop-blur-sm">
+          <h3 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
+            <TrendingDown className="w-5 h-5 text-emerald-400" />
+            Comparativo: Consórcio vs Financiamento
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                <span className="text-emerald-400 font-semibold text-sm">Consórcio</span>
               </div>
-              <div>
-                <h3 className="text-white font-bold text-xl">Lance Embutido</h3>
-                <p className="text-emerald-400 text-sm font-medium">25% do valor da carta</p>
+              <div className="space-y-2">
+                {data.lanceType === 'fixo' ? (
+                  <>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Valor líquido:</span>
+                      <span className="text-slate-300">{formatCurrency(valorLiquidoReceber)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Taxa adm. ({data.taxaAdministrativa}%):</span>
+                      <span className="text-slate-300">{formatCurrency(taxaValor)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Fundo reserva ({data.fundoReserva}%):</span>
+                      <span className="text-slate-300">{formatCurrency(fundoValor)}</span>
+                    </div>
+                  </>
+                ) : data.lanceType === 'livre' ? (
+                  <>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Valor líquido:</span>
+                      <span className="text-slate-300">{formatCurrency(valorLiquidoReceber)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Taxa adm. ({data.taxaAdministrativa}%):</span>
+                      <span className="text-slate-300">{formatCurrency(taxaValor)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Fundo reserva ({data.fundoReserva}%):</span>
+                      <span className="text-slate-300">{formatCurrency(fundoValor)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm text-xs pt-2 border-t border-emerald-500/10">
+                      <span className="text-orange-400">Lance livre (adicional do bolso):</span>
+                      <span className="text-orange-400">{formatCurrency(data.lanceLivreValue || 0)}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Crédito:</span>
+                      <span className="text-slate-300">{formatCurrency(data.creditValue)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Taxa adm. ({data.taxaAdministrativa}%):</span>
+                      <span className="text-slate-300">{formatCurrency(taxaValor)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Fundo reserva ({data.fundoReserva}%):</span>
+                      <span className="text-slate-300">{formatCurrency(fundoValor)}</span>
+                    </div>
+                  </>
+                )}
+                <div className="border-t border-emerald-500/20 pt-2 mt-2">
+                  <div className="flex justify-between">
+                    <span className="text-emerald-300 font-semibold">Total:</span>
+                    <span className="text-white font-bold text-xl">{formatCurrency(totalGeral)}</span>
+                  </div>
+                </div>
               </div>
+              <p className="text-emerald-300 text-xs mt-3">
+                ✅ Sem juros • Encargos diluídos • Reajuste {indiceReajuste}
+              </p>
             </div>
 
-            <div className="bg-slate-900/50 rounded-xl p-5 mb-4">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-700/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                      <DollarSign className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold">Valor da Carta de Crédito</p>
-                      <p className="text-slate-400 text-xs">Crédito total contratado</p>
-                    </div>
-                  </div>
-                  <span className="text-white font-bold text-2xl">{formatCurrency(data.creditValue)}</span>
+            <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <AlertCircle className="w-5 h-5 text-red-400" />
+                <span className="text-red-400 font-semibold text-sm">Financiamento*</span>
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">Valor financiado:</span>
+                  <span className="text-slate-300">{formatCurrency(valorLiquidoReceber)}</span>
                 </div>
-
-                <div className="flex items-center justify-between pb-3 border-b border-slate-700/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
-                      <TrendingDown className="w-5 h-5 text-red-400" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold">(-) Lance Embutido (25%)</p>
-                      <p className="text-slate-400 text-xs">Valor deduzido da carta</p>
-                    </div>
-                  </div>
-                  <span className="text-red-400 font-bold text-2xl">- {formatCurrency(lanceEmbutido)}</span>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">Juros totais:</span>
+                  <span className="text-slate-300">{formatCurrency(financing.totalInterest)}</span>
                 </div>
-
-                <div className="bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-xl p-4 border-2 border-emerald-500/40">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-lg bg-emerald-500/30 flex items-center justify-center">
-                        <CheckCircle2 className="w-6 h-6 text-emerald-400" />
-                      </div>
-                      <div>
-                        <p className="text-emerald-300 font-bold text-lg">Valor Líquido a Receber</p>
-                        <p className="text-emerald-400/70 text-xs">Valor que você recebe na conta</p>
-                      </div>
-                    </div>
-                    <span className="text-emerald-400 font-bold text-3xl">{formatCurrency(valorLiquidoReceber)}</span>
+                <div className="border-t border-red-500/20 pt-2 mt-2">
+                  <div className="flex justify-between">
+                    <span className="text-red-300 font-semibold">Total:</span>
+                    <span className="text-white font-bold text-xl">{formatCurrency(financing.totalPaid)}</span>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="w-4 h-4 text-amber-400" />
-                </div>
-                <div>
-                  <p className="text-white font-semibold text-sm mb-1">Como funciona o lance embutido?</p>
-                  <p className="text-slate-300 text-xs leading-relaxed">
-                    O lance embutido é utilizado para antecipar sua contemplação. O valor de <span className="text-emerald-400 font-semibold">{formatCurrency(lanceEmbutido)}</span> é 
-                    deduzido do valor total da carta, e você recebe o valor líquido de <span className="text-emerald-400 font-semibold">{formatCurrency(valorLiquidoReceber)}</span>. 
-                    As taxas administrativa e fundo de reserva são calculadas sobre o valor contratado ({formatCurrency(data.creditValue)}).
-                    Essa é uma excelente estratégia para quem deseja ser contemplado mais rapidamente sem precisar usar recursos próprios.
-                  </p>
-                </div>
-              </div>
+              <p className="text-red-300 text-xs mt-3">
+                ❌ Com juros de {taxaFinanciamentoAnual}% a.a. ({(taxaFinanciamentoMensal * 100).toFixed(1)}% a.m.) SAC
+              </p>
+              <p className="text-red-300/70 text-xs mt-1">
+                📊 Taxa média de mercado
+              </p>
             </div>
           </div>
-        )}
 
-        {data.lanceType === 'livre' && (
-          <div className="bg-gradient-to-br from-orange-500/10 via-amber-500/10 to-yellow-500/10 rounded-2xl border-2 border-orange-500/30 p-6 backdrop-blur-sm">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
-                <TrendingUp className="w-6 h-6 text-white" />
+          <div className="bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-xl p-4 text-center">
+            <p className="text-emerald-300 text-sm mb-1">💰 Sua economia com consórcio</p>
+            <p className="text-white text-3xl font-bold">{formatCurrency(economia)}</p>
+            <p className="text-emerald-300 text-sm mt-1">
+              {economiaPercent.toFixed(1)}% mais barato que o financiamento
+            </p>
+          </div>
+
+          <p className="text-slate-500 text-xs mt-3 text-center">
+            *Comparação baseada em financiamento com taxa média de mercado de {taxaFinanciamentoAnual}% a.a. ({(taxaFinanciamentoMensal * 100).toFixed(1)}% a.m.) - Sistema SAC.
+            <br />
+            O valor financiado é igual ao valor líquido que você recebe no consórcio.
+          </p>
+        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                <span className="text-emerald-400 font-semibold text-sm">Consórcio</span>
               </div>
-              <div>
-                <h3 className="text-white font-bold text-xl">Lance Livre</h3>
-                <p className="text-orange-400 text-sm font-medium">25% embutido + recurso próprio</p>
+              <div className="space-y-2">
+                {data.lanceType === 'fixo' ? (
+                  <>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Valor líquido:</span>
+                      <span className="text-slate-300">{formatCurrency(valorLiquidoReceber)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Taxa adm. ({data.taxaAdministrativa}%):</span>
+                      <span className="text-slate-300">{formatCurrency(taxaValor)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Fundo reserva ({data.fundoReserva}%):</span>
+                      <span className="text-slate-300">{formatCurrency(fundoValor)}</span>
+                    </div>
+                  </>
+                ) : data.lanceType === 'livre' ? (
+                  <>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Valor líquido:</span>
+                      <span className="text-slate-300">{formatCurrency(valorLiquidoReceber)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Taxa adm. ({data.taxaAdministrativa}%):</span>
+                      <span className="text-slate-300">{formatCurrency(taxaValor)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Fundo reserva ({data.fundoReserva}%):</span>
+                      <span className="text-slate-300">{formatCurrency(fundoValor)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm text-xs pt-2 border-t border-emerald-500/10">
+                      <span className="text-orange-400">Lance livre (adicional do bolso):</span>
+                      <span className="text-orange-400">{formatCurrency(data.lanceLivreValue || 0)}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Crédito:</span>
+                      <span className="text-slate-300">{formatCurrency(data.creditValue)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Taxa adm. ({data.taxaAdministrativa}%):</span>
+                      <span className="text-slate-300">{formatCurrency(taxaValor)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">+ Fundo reserva ({data.fundoReserva}%):</span>
+                      <span className="text-slate-300">{formatCurrency(fundoValor)}</span>
+                    </div>
+                  </>
+                )}
+                <div className="border-t border-emerald-500/20 pt-2 mt-2">
+                  <div className="flex justify-between">
+                    <span className="text-emerald-300 font-semibold">Total:</span>
+                    <span className="text-white font-bold text-xl">{formatCurrency(totalGeral)}</span>
+                  </div>
+                </div>
               </div>
+              <p className="text-emerald-300 text-xs mt-3">
+                ✅ Sem juros • Encargos diluídos • Reajuste {indiceReajuste}
+              </p>
             </div>
 
-            <div className="bg-slate-900/50 rounded-xl p-5 mb-4">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-700/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                      <DollarSign className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold">Valor da Carta de Crédito</p>
-                      <p className="text-slate-400 text-xs">Crédito total contratado</p>
-                    </div>
-                  </div>
-                  <span className="text-white font-bold text-2xl">{formatCurrency(data.creditValue)}</span>
+            <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <AlertCircle className="w-5 h-5 text-red-400" />
+                <span className="text-red-400 font-semibold text-sm">Financiamento*</span>
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">Valor financiado:</span>
+                  <span className="text-slate-300">{formatCurrency(valorLiquidoReceber)}</span>
                 </div>
-
-                <div className="flex items-center justify-between pb-3 border-b border-slate-700/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
-                      <TrendingDown className="w-5 h-5 text-red-400" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold">(-) Lance Embutido (25%)</p>
-                      <p className="text-slate-400 text-xs">Deduzido da carta</p>
-                    </div>
-                  </div>
-                  <span className="text-red-400 font-bold text-2xl">- {formatCurrency(lanceEmbutido)}</span>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">Juros totais:</span>
+                  <span className="text-slate-300">{formatCurrency(financing.totalInterest)}</span>
                 </div>
-
-                <div className="bg-gradient-to-r from-orange-500/20 to-amber-500/20 rounded-xl p-4 border-2 border-orange-500/40">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-lg bg-orange-500/30 flex items-center justify-center">
-                        <CheckCircle2 className="w-6 h-6 text-orange-400" />
-                      </div>
-                      <div>
-                        <p className="text-orange-300 font-bold text-lg">Valor Líquido a Receber</p>
-                        <p className="text-orange-400/70 text-xs">Valor que você recebe na conta</p>
-                      </div>
-                    </div>
-                    <span className="text-orange-400 font-bold text-3xl">{formatCurrency(valorLiquidoReceber)}</span>
+                <div className="border-t border-red-500/20 pt-2 mt-2">
+                  <div className="flex justify-between">
+                    <span className="text-red-300 font-semibold">Total:</span>
+                    <span className="text-white font-bold text-xl">{formatCurrency(financing.totalPaid)}</span>
                   </div>
-                </div>
-
-                <div className="flex items-center justify-between pb-3 border-b border-slate-700/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center">
-                      <DollarSign className="w-5 h-5 text-orange-400" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold">Lance Livre (adicional)</p>
-                      <p className="text-slate-400 text-xs">Recurso próprio (do bolso)</p>
-                    </div>
-                  </div>
-                  <span className="text-orange-400 font-bold text-2xl">{formatCurrency(data.lanceLivreValue || 0)}</span>
                 </div>
               </div>
+              <p className="text-red-300 text-xs mt-3">
+                ❌ Com juros de {taxaFinanciamentoAnual}% a.a. ({(taxaFinanciamentoMensal * 100).toFixed(1)}% a.m.) SAC
+              </p>
+              <p className="text-red-300/70 text-xs mt-1">
+                📊 Taxa média de mercado
+              </p>
             </div>
+          </div>
 
-            <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="w-4 h-4 text-amber-400" />
-                </div>
-                <div>
-                  <p className="text-white font-semibold text-sm
+          <div className="bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-xl p-4 text-center">
+            <p className="text-emerald-300 text-sm mb-1">💰 Sua economia com consórcio</p>
+            <p className="text-white text-3xl font-bold">{formatCurrency(economia)}</p>
+            <p className="text-emerald-300 text-sm mt-1">
+              {economiaPercent.toFixed(1)}% mais barato que o financiamento
+            </p>
+          </div>
+
+          <p className="text-slate-500 text-xs mt-3 text-center">
+            *Comparação baseada em financiamento com taxa média de mercado de {taxaFinanciamentoAnual}% a.a. ({(taxaFinanciamentoMensal * 100).toFixed(1)}% a.m.) - Sistema SAC.
+            <br />
+            O valor financiado é igual ao valor líquido que você recebe no consórcio.
+          </p>
+        </div>
+
+        <footer className="text-center py-6 border-t border-slate-700/50">
+          <p className="text-slate-500 text-xs">
+            © {new Date().getFullYear()} Simulador Consórcio • Todos os direitos reservados
+          </p>
+          <p className="text-slate-600 text-xs mt-1">
+            Simulação meramente ilustrativa. Condições sujeitas à aprovação.
+          </p>
+        </footer>
+      </main>
+    </div>
+  );
+}
