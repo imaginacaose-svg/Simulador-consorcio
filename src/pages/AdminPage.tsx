@@ -3,7 +3,7 @@ import { Calculator, Copy, Check, Link2, User, DollarSign, RefreshCw, Home, Car,
 import { formatCurrency } from '../utils/format';
 
 type ConsortiumType = 'imobiliario' | 'automovel';
-type TabType = 'proposta' | 'taxa';
+type TabType = 'proposta' | 'taxa' | 'lance';
 type LanceType = 'fixo' | 'livre' | 'nenhum';
 
 interface FormData {
@@ -34,7 +34,7 @@ export default function AdminPage() {
     clientName: '',
     isParcelinha: false,
     consortiumType: 'imobiliario',
-    taxaAdministrativa: 16,
+    taxaAdministrativa: 18,
     fundoReserva: 2,
     lanceType: 'nenhum',
     lanceLivreValue: '',
@@ -103,7 +103,7 @@ export default function AdminPage() {
       clientName: '',
       isParcelinha: false,
       consortiumType: 'imobiliario',
-      taxaAdministrativa: 16,
+      taxaAdministrativa: 18,
       fundoReserva: 2,
       lanceType: 'nenhum',
       lanceLivreValue: '',
@@ -168,7 +168,7 @@ export default function AdminPage() {
               <Calculator className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-white font-bold text-lg">Método Consórcio</h1>
+              <h1 className="text-white font-bold text-lg">Simulador Consórcio</h1>
               <p className="text-slate-400 text-xs">Gerador de Propostas</p>
             </div>
           </div>
@@ -204,6 +204,17 @@ export default function AdminPage() {
             >
               <Percent className="w-4 h-4" />
               Taxa Administrativa
+            </button>
+            <button
+              onClick={() => setActiveTab('lance')}
+              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-all ${
+                activeTab === 'lance'
+                  ? 'border-emerald-500 text-emerald-400'
+                  : 'border-transparent text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <TrendingUp className="w-4 h-4" />
+              Lance Total
             </button>
           </div>
         </div>
@@ -336,14 +347,14 @@ export default function AdminPage() {
                     </div>
                     <div>
                       <span className="text-white text-sm font-medium">Modalidade Parcelinha</span>
-                      <p className="text-slate-400 text-xs">Parcela reduzida após contemplação</p>
+                      <p className="text-slate-400 text-xs">Cliente paga parcela reduzida até contemplação</p>
                     </div>
                   </label>
 
                   {formData.isParcelinha && (
                     <div className="mt-4">
                       <label className="text-slate-300 text-sm mb-1.5 block">
-                        Valor da Parcela Pós-Contemplação
+                        Valor da Parcela Pós-Contemplação (valor normal)
                       </label>
                       <input
                         type="text"
@@ -354,6 +365,9 @@ export default function AdminPage() {
                         placeholder="R$ 0,00"
                         className="w-full bg-slate-700/50 border border-emerald-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
                       />
+                      <p className="text-slate-500 text-xs mt-1">
+                        💡 Valor que o cliente paga após ser contemplado
+                      </p>
                     </div>
                   )}
                 </div>
@@ -519,8 +533,8 @@ export default function AdminPage() {
                       <div className="flex justify-between">
                         <span className="text-slate-400 text-sm">Lance</span>
                         <span className="text-emerald-400 font-medium">
-                          {formData.lanceType === 'fixo' 
-                            ? 'Fixo 25%' 
+                          {formData.lanceType === 'fixo'
+                            ? 'Fixo 25%'
                             : `Livre ${formatCurrency(parseFloat(formData.lanceLivreValue) || 0)}`}
                         </span>
                       </div>
@@ -552,7 +566,7 @@ export default function AdminPage() {
                       Simulador de Taxa Administrativa
                     </h2>
                     <p className="text-slate-300 text-sm">
-                      A taxa administrativa varia de <span className="text-violet-400 font-semibold">16% a 21%</span> sobre
+                      A taxa administrativa varia de <span className="text-violet-400 font-semibold">15% a 22%</span> sobre
                       o valor do crédito, dependendo do grupo escolhido.
                     </p>
                   </div>
@@ -581,16 +595,16 @@ export default function AdminPage() {
 
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-slate-400 text-sm">16%</span>
+                    <span className="text-slate-400 text-sm">15%</span>
                     <span className="text-violet-400 font-bold text-3xl">
                       {formData.taxaAdministrativa}%
                     </span>
-                    <span className="text-slate-400 text-sm">21%</span>
+                    <span className="text-slate-400 text-sm">22%</span>
                   </div>
                   <input
                     type="range"
-                    min="16"
-                    max="21"
+                    min="15"
+                    max="22"
                     step="0.5"
                     value={formData.taxaAdministrativa}
                     onChange={(e) =>
@@ -598,11 +612,11 @@ export default function AdminPage() {
                     }
                     className="w-full h-2 rounded-full appearance-none cursor-pointer"
                     style={{
-                      background: `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${((formData.taxaAdministrativa - 16) / 5) * 100}%, #334155 ${((formData.taxaAdministrativa - 16) / 5) * 100}%, #334155 100%)`,
+                      background: `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${((formData.taxaAdministrativa - 15) / 7) * 100}%, #334155 ${((formData.taxaAdministrativa - 15) / 7) * 100}%, #334155 100%)`,
                     }}
                   />
                   <div className="flex justify-between mt-2">
-                    {[16, 17, 18, 19, 20, 21].map((val) => (
+                    {[15, 16, 17, 18, 19, 20, 21, 22].map((val) => (
                       <button
                         key={val}
                         onClick={() => handleChange('taxaAdministrativa', val)}
@@ -622,7 +636,7 @@ export default function AdminPage() {
                   <div className="flex items-start gap-2">
                     <Info className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
                     <p className="text-slate-300 text-sm">
-                      {formData.taxaAdministrativa <= 17
+                      {formData.taxaAdministrativa <= 16
                         ? '🟢 Grupo com taxa reduzida — excelente condição!'
                         : formData.taxaAdministrativa <= 19
                         ? '🔵 Grupo com taxa padrão — condição equilibrada.'
@@ -741,7 +755,7 @@ export default function AdminPage() {
                 <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-6 backdrop-blur-sm">
                   <h3 className="text-white font-semibold mb-4 text-sm">Comparativo entre Grupos</h3>
                   <div className="space-y-2">
-                    {[16, 17, 18, 19, 20, 21].map((taxa) => {
+                    {[15, 16, 17, 18, 19, 20, 21, 22].map((taxa) => {
                       const valorTaxa = (parseFloat(formData.creditValue) || 0) * (taxa / 100);
                       const isSelected = taxa === formData.taxaAdministrativa;
                       return (
@@ -770,6 +784,255 @@ export default function AdminPage() {
                         </div>
                       );
                     })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'lance' && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-6">
+              <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-2xl border border-emerald-500/20 p-6">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                    <TrendingUp className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <h2 className="text-white font-bold text-lg mb-1">
+                      Simulador de Lance Total
+                    </h2>
+                    <p className="text-slate-300 text-sm">
+                      O lance total é a soma do <span className="text-emerald-400 font-semibold">lance embutido (25%)</span> com o <span className="text-orange-400 font-semibold">lance livre (do bolso)</span>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-6 backdrop-blur-sm">
+                <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-emerald-400" />
+                  Valor do Crédito (referência)
+                </h3>
+                <input
+                  type="text"
+                  value={getDisplayValue('creditValue')}
+                  onChange={(e) => handleCurrencyChange('creditValue', e.target.value)}
+                  placeholder="R$ 0,00"
+                  className="w-full bg-slate-700/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all text-lg font-semibold"
+                />
+              </div>
+
+              <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-6 backdrop-blur-sm">
+                <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-emerald-400" />
+                  Opção de Lance
+                </h3>
+                <div className="grid grid-cols-3 gap-3 mb-4">
+                  <button
+                    onClick={() => handleChange('lanceType', 'nenhum')}
+                    className={`flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all ${
+                      formData.lanceType === 'nenhum'
+                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
+                        : 'border-slate-600/50 bg-slate-700/30 text-slate-400 hover:border-slate-500'
+                    }`}
+                  >
+                    <X className="w-6 h-6" />
+                    <span className="font-semibold text-xs">Sem Lance</span>
+                  </button>
+                  <button
+                    onClick={() => handleChange('lanceType', 'fixo')}
+                    className={`flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all ${
+                      formData.lanceType === 'fixo'
+                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
+                        : 'border-slate-600/50 bg-slate-700/30 text-slate-400 hover:border-slate-500'
+                    }`}
+                  >
+                    <Percent className="w-6 h-6" />
+                    <span className="font-semibold text-xs">Fixo 25%</span>
+                  </button>
+                  <button
+                    onClick={() => handleChange('lanceType', 'livre')}
+                    className={`flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all ${
+                      formData.lanceType === 'livre'
+                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
+                        : 'border-slate-600/50 bg-slate-700/30 text-slate-400 hover:border-slate-500'
+                    }`}
+                  >
+                    <DollarSign className="w-6 h-6" />
+                    <span className="font-semibold text-xs">Livre</span>
+                  </button>
+                </div>
+
+                {formData.lanceType === 'livre' && (
+                  <div className="mt-4">
+                    <label className="text-slate-300 text-sm mb-1.5 block">
+                      Valor do Lance Livre (adicional do bolso)
+                    </label>
+                    <input
+                      type="text"
+                      value={getDisplayValue('lanceLivreValue')}
+                      onChange={(e) => handleCurrencyChange('lanceLivreValue', e.target.value)}
+                      placeholder="R$ 0,00"
+                      className="w-full bg-slate-700/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-gradient-to-br from-emerald-600/20 to-teal-600/20 rounded-2xl border border-emerald-500/30 p-6 backdrop-blur-sm">
+                <h3 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
+                  <Calculator className="w-5 h-5 text-emerald-400" />
+                  Resultado do Lance Total
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center bg-slate-800/50 rounded-xl p-4">
+                    <div>
+                      <p className="text-slate-400 text-sm">Valor do Crédito</p>
+                      <p className="text-white font-semibold">
+                        {formatCurrency(parseFloat(formData.creditValue) || 0)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {formData.lanceType !== 'nenhum' && (
+                    <>
+                      <div className="flex justify-between items-center bg-slate-800/50 rounded-xl p-4">
+                        <div>
+                          <p className="text-slate-400 text-sm">Lance Embutido (25%)</p>
+                          <p className="text-red-400 font-semibold">
+                            {formatCurrency((parseFloat(formData.creditValue) || 0) * 0.25)}
+                          </p>
+                        </div>
+                      </div>
+
+                      {formData.lanceType === 'livre' && formData.lanceLivreValue && (
+                        <div className="flex justify-between items-center bg-slate-800/50 rounded-xl p-4">
+                          <div>
+                            <p className="text-slate-400 text-sm">Lance Livre (do bolso)</p>
+                            <p className="text-orange-400 font-semibold">
+                              {formatCurrency(parseFloat(formData.lanceLivreValue) || 0)}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex justify-between items-center bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
+                        <div>
+                          <p className="text-emerald-300 text-sm font-medium">Total de Lance</p>
+                          <p className="text-white font-bold text-xl">
+                            {formatCurrency(
+                              (parseFloat(formData.creditValue) || 0) * 0.25 +
+                              (formData.lanceType === 'livre' ? parseFloat(formData.lanceLivreValue) || 0 : 0)
+                            )}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-between items-center bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
+                        <div>
+                          <p className="text-blue-300 text-sm font-medium">Valor Líquido a Receber</p>
+                          <p className="text-white font-bold text-xl">
+                            {formatCurrency(
+                              (parseFloat(formData.creditValue) || 0) -
+                              (parseFloat(formData.creditValue) || 0) * 0.25
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {formData.lanceType === 'nenhum' && (
+                    <div className="flex justify-between items-center bg-slate-700/30 rounded-xl p-4">
+                      <div>
+                        <p className="text-slate-400 text-sm">Valor a Receber</p>
+                        <p className="text-white font-bold text-xl">
+                          {formatCurrency(parseFloat(formData.creditValue) || 0)}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {formData.lanceType !== 'nenhum' && (
+                  <div className="mt-4 bg-slate-800/50 rounded-xl p-4">
+                    <div className="flex items-start gap-2">
+                      <Info className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
+                      <p className="text-slate-300 text-sm">
+                        O <span className="text-emerald-400 font-semibold">valor líquido</span> é sempre o crédito menos o lance embutido (25%).
+                        O lance livre é um valor adicional do bolso para antecipar ainda mais a contemplação.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="lg:col-span-1">
+              <div className="sticky top-36 space-y-4">
+                <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-6 backdrop-blur-sm">
+                  <h3 className="text-white font-semibold mb-4">📋 Resumo do Lance</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-slate-400 text-sm">Crédito</span>
+                      <span className="text-white font-medium">
+                        {formatCurrency(parseFloat(formData.creditValue) || 0)}
+                      </span>
+                    </div>
+                    {formData.lanceType !== 'nenhum' && (
+                      <>
+                        <div className="flex justify-between">
+                          <span className="text-slate-400 text-sm">Lance Embutido</span>
+                          <span className="text-red-400 font-medium">
+                            {formatCurrency((parseFloat(formData.creditValue) || 0) * 0.25)}
+                          </span>
+                        </div>
+                        {formData.lanceType === 'livre' && formData.lanceLivreValue && (
+                          <div className="flex justify-between">
+                            <span className="text-slate-400 text-sm">Lance Livre</span>
+                            <span className="text-orange-400 font-medium">
+                              {formatCurrency(parseFloat(formData.lanceLivreValue) || 0)}
+                            </span>
+                          </div>
+                        )}
+                        <hr className="border-slate-700/50" />
+                        <div className="flex justify-between">
+                          <span className="text-slate-400 text-sm">Total Lance</span>
+                          <span className="text-emerald-400 font-bold">
+                            {formatCurrency(
+                              (parseFloat(formData.creditValue) || 0) * 0.25 +
+                              (formData.lanceType === 'livre' ? parseFloat(formData.lanceLivreValue) || 0 : 0)
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-400 text-sm">Valor Líquido</span>
+                          <span className="text-blue-400 font-bold">
+                            {formatCurrency(
+                              (parseFloat(formData.creditValue) || 0) -
+                              (parseFloat(formData.creditValue) || 0) * 0.25
+                            )}
+                          </span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-2xl border border-emerald-500/20 p-6 backdrop-blur-sm">
+                  <h3 className="text-white font-semibold mb-3 text-sm">💡 Como funciona?</h3>
+                  <div className="space-y-2 text-xs text-slate-300">
+                    <p>
+                      <span className="text-emerald-400 font-semibold">Lance Embutido:</span> 25% do valor do crédito, deduzido automaticamente.
+                    </p>
+                    <p>
+                      <span className="text-orange-400 font-semibold">Lance Livre:</span> Valor adicional do bolso para antecipar contemplação.
+                    </p>
+                    <p>
+                      <span className="text-blue-400 font-semibold">Valor Líquido:</span> Crédito - Lance Embutido (sempre igual para Fixo e Livre).
+                    </p>
                   </div>
                 </div>
               </div>
